@@ -5,6 +5,7 @@ use App\Http\Controllers\IdeaController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\RedirectController;
+use App\Http\Controllers\CookieConsentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,11 +46,24 @@ Route::middleware(['auth'])->group(function () {
     // Logs page — currently no admin restriction (intentional)
     Route::get('/logs', [LogController::class, 'index'])
         ->name('logs.index');
+
+    // Cookie consent route
+    Route::post('/cookie-consent', [CookieConsentController::class, 'store'])
+        ->name('cookie.consent');
+
+    // Cookie toggle route (switch between accept/refuse)
+    Route::post('/cookie-toggle', [CookieConsentController::class, 'toggle'])
+        ->name('cookie.toggle');
 });
 
 // ------------- Intentional Open Redirect Vulnerability -------------
 Route::get('/redirect', [RedirectController::class, 'vulnerableRedirect'])
     ->name('redirect.vulnerable');
+
+// ------------- Privacy Policy Page (accessible to all) -------------
+Route::get('/privacy', function () {
+    return view('privacy');
+})->name('privacy');
 
 // ------------- Authentication routes from Breeze -------------
 require __DIR__.'/auth.php';

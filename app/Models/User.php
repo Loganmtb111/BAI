@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'User_Cookies',  // null = pas choisi, 1 = accepté, 2 = refusé
     ];
 
     /**
