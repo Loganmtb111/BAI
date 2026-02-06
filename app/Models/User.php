@@ -21,8 +21,17 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
         'User_Cookies',  // null = pas choisi, 1 = accepté, 2 = refusé
     ];
+
+    /**
+     * Vérifie si l'utilisateur est administrateur.
+     */
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
 
     /**
      * The attributes that should be hidden for serialization.

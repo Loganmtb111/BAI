@@ -13,13 +13,10 @@ use App\Http\Controllers\CookieConsentController;
 |--------------------------------------------------------------------------
 |
 | SECURITY NOTES:
-| - No authorization policies applied yet
-| - No admin role enforcement
-| - No validation  XSS possible
+| - Authorization policies applied (IdeaPolicy, CommentPolicy)
+| - Admin role enforcement on logs route
+| - No validation  XSS possible (TODO)
 | - Open Redirect vulnerability is intentional
-| - Logs are visible to any authenticated user
-|
-| Secure all these aspects TODO
 |
 */
 
@@ -43,8 +40,9 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/ideas/{idea}/comments/{comment}', [CommentController::class, 'destroy'])
         ->name('comments.destroy');
 
-    // Logs page — currently no admin restriction (intentional)
+    // Logs page — admin only
     Route::get('/logs', [LogController::class, 'index'])
+        ->middleware('admin')
         ->name('logs.index');
 
     // Cookie consent route

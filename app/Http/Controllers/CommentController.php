@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
  * NOTE:
  * - No validation (TODO)
  * - No limit per user (add max 3 comments per idea) (TODO)
- * - No authorization on delete (TODO secure)
+ * - Authorization via CommentPolicy (owner OR admin can delete)
  */
 class CommentController extends Controller
 {
@@ -39,12 +39,10 @@ class CommentController extends Controller
 
     /**
      * Remove a comment.
-     *
-     * NOTE:
-     * - No authorization check ANY user can delete ANY comment (TODO)
      */
     public function destroy(Idea $idea, Comment $comment)
     {
+        $this->authorize('delete', $comment);
         $comment->delete();
 
         return redirect()
