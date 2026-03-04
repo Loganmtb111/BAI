@@ -23,9 +23,23 @@ class PasswordSecurityService
      *
      * Current behavior → weak validation (voluntary...).
      */
-    public function validatePasswordStrength(string $password): bool
+    public function validatePasswordStrength(string $password): array
     {
+        $errors = [];
 
-        return strlen($password) >= 8;
+        if (strlen($password) < 12) {
+            $errors[] = 'Le mot de passe doit contenir au moins 12 caractères.';
+        }
+        if (!preg_match('/[A-Z]/', $password)) {
+            $errors[] = 'Le mot de passe doit contenir au moins une lettre majuscule.';
+        }
+        if (!preg_match('/[a-z]/', $password)) {
+            $errors[] = 'Le mot de passe doit contenir au moins une lettre minuscule.';
+        }
+        if (!preg_match('/[^a-zA-Z0-9]/', $password)) {
+            $errors[] = 'Le mot de passe doit contenir au moins un caractère spécial.';
+        }
+
+        return $errors;
     }
 }

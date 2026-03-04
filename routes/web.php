@@ -36,7 +36,15 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/ideas/{idea}/comments', [CommentController::class, 'store'])
         ->name('comments.store');
 
-    // Delete a comment (no policy yet → intentional vulnerability)
+    // Edit a comment
+    Route::get('/ideas/{idea}/comments/{comment}/edit', [CommentController::class, 'edit'])
+        ->name('comments.edit');
+
+    // Update a comment
+    Route::put('/ideas/{idea}/comments/{comment}', [CommentController::class, 'update'])
+        ->name('comments.update');
+
+    // Delete a comment
     Route::delete('/ideas/{idea}/comments/{comment}', [CommentController::class, 'destroy'])
         ->name('comments.destroy');
 

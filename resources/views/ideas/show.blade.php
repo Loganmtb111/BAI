@@ -81,14 +81,23 @@
                         {!! nl2br($comment->description) !!}
                     </div>
 
-                    <form action="{{ route('comments.destroy', [$idea, $comment]) }}"
-                          method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button class="text-xs text-red-600 mt-1">
-                            Delete
-                        </button>
-                    </form>
+                    <div class="flex space-x-3 mt-1">
+                        @can('update', $comment)
+                            <a href="{{ route('comments.edit', [$idea, $comment]) }}"
+                               class="text-xs text-blue-600">Edit</a>
+                        @endcan
+
+                        @can('delete', $comment)
+                            <form action="{{ route('comments.destroy', [$idea, $comment]) }}"
+                                  method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button class="text-xs text-red-600">
+                                    Delete
+                                </button>
+                            </form>
+                        @endcan
+                    </div>
 
                 </div>
 

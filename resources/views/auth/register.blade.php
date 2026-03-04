@@ -25,6 +25,13 @@
                             name="password"
                             required autocomplete="new-password" />
 
+            <ul class="mt-2 text-sm text-gray-500 list-disc list-inside">
+                <li>Au moins 12 caractères</li>
+                <li>Au moins une lettre majuscule</li>
+                <li>Au moins une lettre minuscule</li>
+                <li>Au moins un caractère spécial (!@#$...)</li>
+            </ul>
+
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
