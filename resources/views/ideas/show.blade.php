@@ -25,10 +25,8 @@
                 Application: {{ $idea->application ?? 'N/A' }}
             </p>
 
-            {{-- SECURITY WARNING:
-                 XSS vulnerability — output not escaped --}}
-            <div class="mt-4 text-sm">
-                {!! nl2br($idea->description) !!}
+            <div class="mt-4 text-sm whitespace-pre-line">
+                {{ $idea->description }}
             </div>
 
             {{-- Edit / Delete --}}
@@ -76,9 +74,8 @@
                         • {{ $comment->created_at->diffForHumans() }}
                     </p>
 
-                    {{-- SECURITY WARNING: XSS vulnerable --}}
-                    <div class="mt-1 text-sm">
-                        {!! nl2br($comment->description) !!}
+                    <div class="mt-1 text-sm whitespace-pre-line">
+                        {{ $comment->description }}
                     </div>
 
                     <div class="flex space-x-3 mt-1">
